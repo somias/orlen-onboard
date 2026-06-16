@@ -70,7 +70,7 @@ export const de = {
     Complete: "Abgeschlossen",
     Overdue: "Überfällig",
     "In progress": "In Bearbeitung",
-    "Starting soon": "Beginnt bald",
+    "Starting soon": "Startet bald",
     Upcoming: "Anstehend",
   },
   tracks: {
@@ -117,7 +117,7 @@ export const de = {
     "REMIT / market-abuse training": "REMIT- / Marktmissbrauchs-Schulung",
     "Insider trading policy sign-off": "Insiderhandels-Richtlinie unterzeichnet",
     "Code of conduct acknowledgment": "Verhaltenskodex bestätigt",
-    "GDPR / data protection briefing": "DSGVO- / Datenschutz-Briefing",
+    "GDPR / data protection briefing": "DSGVO- / Datenschutz-Unterweisung",
     "Conflicts of interest declaration": "Interessenkonflikt-Erklärung",
     "IT security & acceptable-use policy": "IT-Sicherheits- & Nutzungsrichtlinie",
     "Desk assignment": "Arbeitsplatz zugewiesen",
