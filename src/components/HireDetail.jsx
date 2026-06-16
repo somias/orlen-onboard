@@ -1,15 +1,19 @@
 import { ArrowLeft } from "lucide-react";
 import { TRACK_ORDER } from "../data/constants";
 import { derive, fmt, initials } from "../data/hires";
-import { TEMPLATES } from "../data/templates";
 import { Eyebrow, Ring, StatusPill } from "./primitives";
 import { TrackBlock } from "./TrackBlock";
+import { useT } from "../i18n";
 
 export function HireDetail({ hire, onBack, onToggle }) {
+  const { t } = useT();
+  const locale = t.meta.locale;
   const d = derive(hire);
   const byTrack = TRACK_ORDER
-    .map((track) => ({ track, tasks: hire.tasks.filter((t) => t.track === track) }))
+    .map((track) => ({ track, tasks: hire.tasks.filter((tk) => tk.track === track) }))
     .filter((g) => g.tasks.length);
+  const tplLabel = t.templateLabels[hire.templateKey]?.label ?? "";
+  const tplDept = t.templateLabels[hire.templateKey]?.department ?? "";
 
   return (
     <div className="space-y-5">
@@ -17,7 +21,7 @@ export function HireDetail({ hire, onBack, onToggle }) {
         onClick={onBack}
         className="flex items-center gap-1.5 text-sm text-slate-500 hover:text-slate-800"
       >
-        <ArrowLeft size={16} /> Back to dashboard
+        <ArrowLeft size={16} /> {t.hireDetail.back}
       </button>
 
       <div className="rounded-xl border border-slate-200 bg-white p-5">
@@ -29,11 +33,11 @@ export function HireDetail({ hire, onBack, onToggle }) {
             <div>
               <div className="flex items-center gap-2.5">
                 <h2 className="text-lg font-semibold text-slate-900">{hire.name}</h2>
-                <StatusPill status={d.status} />
+                <StatusPill statusKey={d.status} />
               </div>
-              <div className="mt-0.5 text-sm text-slate-500">{hire.role} · {hire.department}</div>
+              <div className="mt-0.5 text-sm text-slate-500">{hire.role} · {tplDept}</div>
               <div className="mt-1 text-xs text-slate-400">
-                Starts {fmt(hire.start)} · owner {hire.owner} · template {TEMPLATES[hire.templateKey].label}
+                {t.hireDetail.metaLine(fmt(hire.start, locale), hire.owner, tplLabel)}
               </div>
             </div>
           </div>
@@ -42,7 +46,7 @@ export function HireDetail({ hire, onBack, onToggle }) {
       </div>
 
       <div className="space-y-3">
-        <Eyebrow>Checklist · {d.done} of {d.total} complete</Eyebrow>
+        <Eyebrow>{t.hireDetail.checklist(d.done, d.total)}</Eyebrow>
         {byTrack.map((g) => (
           <TrackBlock
             key={g.track}

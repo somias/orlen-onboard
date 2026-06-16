@@ -1,4 +1,5 @@
 import { STATUS_STYLE } from "../data/constants";
+import { useT } from "../i18n";
 
 export function Eyebrow({ children }) {
   return (
@@ -8,10 +9,11 @@ export function Eyebrow({ children }) {
   );
 }
 
-export function StatusPill({ status }) {
+export function StatusPill({ statusKey }) {
+  const { t } = useT();
   return (
-    <span className={`inline-flex items-center rounded-md border px-2 py-0.5 text-xs font-medium ${STATUS_STYLE[status]}`}>
-      {status}
+    <span className={`inline-flex items-center rounded-md border px-2 py-0.5 text-xs font-medium ${STATUS_STYLE[statusKey]}`}>
+      {t.statuses[statusKey]}
     </span>
   );
 }

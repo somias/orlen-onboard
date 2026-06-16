@@ -1,16 +1,17 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Search, X } from "lucide-react";
 import { derive, fmt, initials } from "../data/hires";
-import { TEMPLATES } from "../data/templates";
+import { useT } from "../i18n";
 import { ProgressBar, StatusPill } from "./primitives";
 
-const STATUSES = ["All", "Overdue", "In progress", "Starting soon", "Upcoming", "Complete"];
+const STATUS_KEYS = ["All", "Overdue", "In progress", "Starting soon", "Upcoming", "Complete"];
 
-function matches(hire, q) {
+function matches(hire, q, t) {
   if (!q) return true;
   const ql = q.toLowerCase();
-  const tplLabel = TEMPLATES[hire.templateKey]?.label ?? "";
-  return [hire.name, hire.role, hire.department, hire.owner, tplLabel]
+  const tplLabel = t.templateLabels[hire.templateKey]?.label ?? "";
+  const tplDept = t.templateLabels[hire.templateKey]?.department ?? "";
+  return [hire.name, hire.role, tplDept, hire.owner, tplLabel]
     .join(" ")
     .toLowerCase()
     .includes(ql);
@@ -30,6 +31,8 @@ function Highlight({ text, query }) {
 }
 
 export function HireTable({ hires, onOpen }) {
+  const { t, lang } = useT();
+  const locale = t.meta.locale;
   const [q, setQ] = useState("");
   const [statusFilter, setStatusFilter] = useState("All");
   const inputRef = useRef(null);
@@ -47,9 +50,9 @@ export function HireTable({ hires, onOpen }) {
     return () => window.removeEventListener("keydown", onKey);
   }, []);
 
-  const bySearch = useMemo(() => hires.filter((h) => matches(h, q)), [hires, q]);
+  const bySearch = useMemo(() => hires.filter((h) => matches(h, q, t)), [hires, q, t]);
   const counts = useMemo(() => {
-    const c = Object.fromEntries(STATUSES.map((s) => [s, 0]));
+    const c = Object.fromEntries(STATUS_KEYS.map((s) => [s, 0]));
     c.All = bySearch.length;
     for (const h of bySearch) c[derive(h).status]++;
     return c;
@@ -65,22 +68,23 @@ export function HireTable({ hires, onOpen }) {
     setStatusFilter("All");
   };
 
-  let emptyTitle = `No hires with status "${statusFilter}"`;
-  if (q && statusFilter === "All") emptyTitle = `No hires match "${q}"`;
-  else if (q) emptyTitle = `No "${statusFilter}" hires match "${q}"`;
+  const statusLabel = (key) => t.statuses[key];
+  let emptyTitle = t.hireTable.empty.noStatus(statusLabel(statusFilter));
+  if (q && statusFilter === "All") emptyTitle = t.hireTable.empty.noQuery(q);
+  else if (q) emptyTitle = t.hireTable.empty.noBoth(q, statusLabel(statusFilter));
 
   return (
     <div className="overflow-hidden rounded-xl border border-slate-200 bg-white">
       <div className="flex items-center justify-between gap-3 border-b border-slate-100 px-4 py-3">
         <div className="text-sm font-medium text-slate-700">
-          New hires
+          {t.hireTable.title}
           {filtered && (
             <span
               className="ml-2 text-xs font-normal text-slate-400"
               role="status"
               aria-live="polite"
             >
-              · {visible.length} of {hires.length}
+              · {t.hireTable.countOf(visible.length, hires.length)}
             </span>
           )}
         </div>
@@ -100,8 +104,8 @@ export function HireTable({ hires, onOpen }) {
                 }
               }
             }}
-            placeholder="Search hires…"
-            aria-label="Search hires"
+            placeholder={t.hireTable.searchPlaceholder}
+            aria-label={t.hireTable.searchAria}
             className="w-44 rounded-lg border border-slate-200 py-1.5 pl-8 pr-8 text-xs outline-none placeholder:text-slate-400 focus:border-slate-400 sm:w-56"
           />
           {q ? (
@@ -111,7 +115,7 @@ export function HireTable({ hires, onOpen }) {
                 inputRef.current?.focus();
               }}
               className="absolute right-1.5 rounded p-0.5 text-slate-400 hover:bg-slate-100 hover:text-slate-700"
-              aria-label="Clear search"
+              aria-label={t.hireTable.clearSearchAria}
             >
               <X size={14} />
             </button>
@@ -124,7 +128,7 @@ export function HireTable({ hires, onOpen }) {
       </div>
 
       <div className="flex flex-wrap items-center gap-1.5 border-b border-slate-100 px-4 py-2.5">
-        {STATUSES.map((s) => {
+        {STATUS_KEYS.map((s) => {
           const active = statusFilter === s;
           const dimmed = !active && counts[s] === 0;
           return (
@@ -140,7 +144,7 @@ export function HireTable({ hires, onOpen }) {
                     : "border-slate-200 text-slate-600 hover:border-slate-300 hover:bg-slate-50"
               }`}
             >
-              <span>{s}</span>
+              <span>{statusLabel(s)}</span>
               <span className={`tabular-nums ${active ? "text-slate-300" : "text-slate-400"}`}>{counts[s]}</span>
             </button>
           );
@@ -153,30 +157,29 @@ export function HireTable({ hires, onOpen }) {
             <Search size={18} className="text-slate-400" />
           </div>
           <div className="mt-3 text-sm font-medium text-slate-700">{emptyTitle}</div>
-          <div className="mt-1 text-xs text-slate-400">
-            Try a different name, role, department, owner or template.
-          </div>
+          <div className="mt-1 text-xs text-slate-400">{t.hireTable.empty.hint}</div>
           <button
             onClick={clearAll}
             className="mt-4 rounded-lg border border-slate-200 px-3 py-1 text-xs text-slate-600 hover:bg-slate-50"
           >
-            Clear filters
+            {t.hireTable.clearFilters}
           </button>
         </div>
       ) : (
         <table className="w-full text-left text-sm">
           <thead>
             <tr className="text-[11px] uppercase tracking-wider text-slate-400">
-              <th className="px-4 py-2 font-medium">Name</th>
-              <th className="hidden px-4 py-2 font-medium sm:table-cell">Department</th>
-              <th className="hidden px-4 py-2 font-medium sm:table-cell">Start</th>
-              <th className="px-4 py-2 font-medium">Progress</th>
-              <th className="px-4 py-2 font-medium">Status</th>
+              <th className="px-4 py-2 font-medium">{t.hireTable.cols.name}</th>
+              <th className="hidden px-4 py-2 font-medium sm:table-cell">{t.hireTable.cols.department}</th>
+              <th className="hidden px-4 py-2 font-medium sm:table-cell">{t.hireTable.cols.start}</th>
+              <th className="px-4 py-2 font-medium">{t.hireTable.cols.progress}</th>
+              <th className="px-4 py-2 font-medium">{t.hireTable.cols.status}</th>
             </tr>
           </thead>
           <tbody>
             {visible.map((h) => {
               const d = derive(h);
+              const dept = t.templateLabels[h.templateKey]?.department ?? "";
               return (
                 <tr
                   key={h.id}
@@ -199,9 +202,9 @@ export function HireTable({ hires, onOpen }) {
                     </div>
                   </td>
                   <td className="hidden px-4 py-3 text-slate-500 sm:table-cell">
-                    <Highlight text={h.department} query={q} />
+                    <Highlight text={dept} query={q} />
                   </td>
-                  <td className="hidden px-4 py-3 text-slate-500 sm:table-cell">{fmt(h.start)}</td>
+                  <td className="hidden px-4 py-3 text-slate-500 sm:table-cell">{fmt(h.start, locale)}</td>
                   <td className="px-4 py-3">
                     <div className="flex items-center gap-2">
                       <div className="w-24"><ProgressBar pct={d.pct} /></div>
@@ -209,7 +212,7 @@ export function HireTable({ hires, onOpen }) {
                     </div>
                   </td>
                   <td className="px-4 py-3">
-                    <StatusPill status={d.status} />
+                    <StatusPill statusKey={d.status} />
                   </td>
                 </tr>
               );

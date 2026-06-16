@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { X } from "lucide-react";
 import { TEMPLATES } from "../data/templates";
+import { useT } from "../i18n";
 
 export function AddHireModal({ presetTemplate, onClose, onCreate }) {
+  const { t } = useT();
   const [name, setName] = useState("");
   const [role, setRole] = useState("");
   const [templateKey, setTemplateKey] = useState(presetTemplate || "trading");
@@ -10,13 +12,14 @@ export function AddHireModal({ presetTemplate, onClose, onCreate }) {
   const [touched, setTouched] = useState(false);
 
   const valid = name.trim().length > 1;
+  const tx = t.templateLabels[templateKey];
 
   function submit() {
     setTouched(true);
     if (!valid) return;
     onCreate({
       name: name.trim(),
-      role: role.trim() || "New hire",
+      role: role.trim() || t.modal.fallbackRole,
       templateKey,
       start: new Date(start + "T00:00:00"),
     });
@@ -32,49 +35,49 @@ export function AddHireModal({ presetTemplate, onClose, onCreate }) {
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex items-center justify-between">
-          <h3 className="text-base font-semibold text-slate-900">Add new hire</h3>
-          <button onClick={onClose} className="text-slate-400 hover:text-slate-700">
+          <h3 className="text-base font-semibold text-slate-900">{t.modal.title}</h3>
+          <button onClick={onClose} className="text-slate-400 hover:text-slate-700" aria-label={t.modal.closeAria}>
             <X size={18} />
           </button>
         </div>
 
         <div className="mt-4 space-y-3">
           <div>
-            <label className="text-xs font-medium text-slate-500">Full name</label>
+            <label className="text-xs font-medium text-slate-500">{t.modal.nameLabel}</label>
             <input
               value={name}
               onChange={(e) => setName(e.target.value)}
-              placeholder="e.g. Marko Petrović"
+              placeholder={t.modal.namePlaceholder}
               className="mt-1 w-full rounded-lg border border-slate-200 px-3 py-2 text-sm outline-none focus:border-slate-400"
             />
             {touched && !valid && (
-              <div className="mt-1 text-xs text-rose-500">Enter a name to create the hire.</div>
+              <div className="mt-1 text-xs text-rose-500">{t.modal.nameError}</div>
             )}
           </div>
           <div>
-            <label className="text-xs font-medium text-slate-500">Role</label>
+            <label className="text-xs font-medium text-slate-500">{t.modal.roleLabel}</label>
             <input
               value={role}
               onChange={(e) => setRole(e.target.value)}
-              placeholder="e.g. Junior power trader"
+              placeholder={t.modal.rolePlaceholder}
               className="mt-1 w-full rounded-lg border border-slate-200 px-3 py-2 text-sm outline-none focus:border-slate-400"
             />
           </div>
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="text-xs font-medium text-slate-500">Template</label>
+              <label className="text-xs font-medium text-slate-500">{t.modal.templateLabel}</label>
               <select
                 value={templateKey}
                 onChange={(e) => setTemplateKey(e.target.value)}
                 className="mt-1 w-full rounded-lg border border-slate-200 px-3 py-2 text-sm outline-none focus:border-slate-400"
               >
-                {Object.values(TEMPLATES).map((t) => (
-                  <option key={t.key} value={t.key}>{t.label}</option>
+                {Object.values(TEMPLATES).map((tpl) => (
+                  <option key={tpl.key} value={tpl.key}>{t.templateLabels[tpl.key].label}</option>
                 ))}
               </select>
             </div>
             <div>
-              <label className="text-xs font-medium text-slate-500">Start date</label>
+              <label className="text-xs font-medium text-slate-500">{t.modal.startLabel}</label>
               <input
                 type="date"
                 value={start}
@@ -84,8 +87,7 @@ export function AddHireModal({ presetTemplate, onClose, onCreate }) {
             </div>
           </div>
           <div className="text-xs text-slate-400">
-            Department set to {TEMPLATES[templateKey].department}. The checklist is generated
-            from the {TEMPLATES[templateKey].label} template.
+            {t.modal.note(tx.department, tx.label)}
           </div>
         </div>
 
@@ -94,13 +96,13 @@ export function AddHireModal({ presetTemplate, onClose, onCreate }) {
             onClick={onClose}
             className="rounded-lg border border-slate-200 px-3 py-1.5 text-sm text-slate-600 hover:bg-slate-50"
           >
-            Cancel
+            {t.modal.cancel}
           </button>
           <button
             onClick={submit}
             className="rounded-lg bg-emerald-600 px-3.5 py-1.5 text-sm font-medium text-white hover:bg-emerald-700"
           >
-            Create hire
+            {t.modal.create}
           </button>
         </div>
       </div>
