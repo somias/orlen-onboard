@@ -1,5 +1,5 @@
 export const en = {
-  meta: { langLabel: "EN", locale: "en-GB" },
+  meta: { langLabel: "EN", locale: "en-GB", flag: "gb" },
   app: {
     brand: "Onboard",
     nav: { dashboard: "Dashboard", templates: "Templates" },
@@ -39,7 +39,8 @@ export const en = {
   hireDetail: {
     back: "Back to dashboard",
     checklist: (done, total) => `Checklist · ${done} of ${total} complete`,
-    metaLine: (date, owner, template) => `Starts ${date} · owner ${owner} · template ${template}`,
+    metaLine: (date, owner, template) =>
+      `Starts ${date} · hiring manager ${owner} · template ${template}`,
   },
   trackBlock: {
     regulated: "Regulated",
@@ -53,7 +54,7 @@ export const en = {
   modal: {
     title: "Add new hire",
     nameLabel: "Full name",
-    namePlaceholder: "e.g. Marko Petrović",
+    namePlaceholder: "e.g. Sebastian Wróblewski",
     nameError: "Enter a name to create the hire.",
     roleLabel: "Role",
     rolePlaceholder: "e.g. Junior power trader",
@@ -92,7 +93,10 @@ export const en = {
   templateLabels: {
     trading: { label: "Trading desk", department: "Trading" },
     compliance: { label: "Compliance", department: "Compliance" },
-    corporate: { label: "Corporate services", department: "Corporate services" },
+    corporate: {
+      label: "Corporate services",
+      department: "Corporate services",
+    },
     it: { label: "IT", department: "IT" },
     operations: { label: "Operations", department: "Operations" },
   },
@@ -120,7 +124,8 @@ export const en = {
     "Code of conduct acknowledgment": "Code of conduct acknowledgment",
     "GDPR / data protection briefing": "GDPR / data protection briefing",
     "Conflicts of interest declaration": "Conflicts of interest declaration",
-    "IT security & acceptable-use policy": "IT security & acceptable-use policy",
+    "IT security & acceptable-use policy":
+      "IT security & acceptable-use policy",
     "Desk assignment": "Desk assignment",
     "Building access badge": "Building access badge",
     "Parking permit": "Parking permit",

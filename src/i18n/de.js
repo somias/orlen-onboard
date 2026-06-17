@@ -1,5 +1,5 @@
 export const de = {
-  meta: { langLabel: "DE", locale: "de-DE" },
+  meta: { langLabel: "DE", locale: "de-DE", flag: "de" },
   app: {
     brand: "Onboard",
     nav: { dashboard: "Dashboard", templates: "Vorlagen" },
@@ -39,7 +39,8 @@ export const de = {
   hireDetail: {
     back: "Zurück zum Dashboard",
     checklist: (done, total) => `Checkliste · ${done} von ${total} erledigt`,
-    metaLine: (date, owner, template) => `Beginnt am ${date} · Verantwortlich ${owner} · Vorlage ${template}`,
+    metaLine: (date, owner, template) =>
+      `Beginnt am ${date} · Verantwortlich ${owner} · Vorlage ${template}`,
   },
   trackBlock: {
     regulated: "Reguliert",
@@ -53,7 +54,7 @@ export const de = {
   modal: {
     title: "Neuen Mitarbeiter hinzufügen",
     nameLabel: "Vollständiger Name",
-    namePlaceholder: "z. B. Marko Petrović",
+    namePlaceholder: "z. B. Sebastian Wróblewski",
     nameError: "Geben Sie einen Namen ein, um den Eintrag anzulegen.",
     roleLabel: "Rolle",
     rolePlaceholder: "z. B. Junior Power Trader",
@@ -92,7 +93,10 @@ export const de = {
   templateLabels: {
     trading: { label: "Trading-Desk", department: "Trading" },
     compliance: { label: "Compliance", department: "Compliance" },
-    corporate: { label: "Corporate Services", department: "Corporate Services" },
+    corporate: {
+      label: "Corporate Services",
+      department: "Corporate Services",
+    },
     it: { label: "IT", department: "IT" },
     operations: { label: "Operations", department: "Operations" },
   },
@@ -112,15 +116,18 @@ export const de = {
     "Infrastructure & cloud consoles": "Infrastruktur- & Cloud-Konsolen",
     "Settlement & back-office system": "Settlement- & Back-Office-System",
     "Employment contract signed": "Arbeitsvertrag unterschrieben",
-    "Tax & social security registration": "Steuer- & Sozialversicherungs-Anmeldung",
+    "Tax & social security registration":
+      "Steuer- & Sozialversicherungs-Anmeldung",
     "Bank & payroll details": "Bank- & Gehaltsdaten",
     "Benefits enrollment": "Anmeldung zu Zusatzleistungen",
     "REMIT / market-abuse training": "REMIT- / Marktmissbrauchs-Schulung",
-    "Insider trading policy sign-off": "Insiderhandels-Richtlinie unterzeichnet",
+    "Insider trading policy sign-off":
+      "Insiderhandels-Richtlinie unterzeichnet",
     "Code of conduct acknowledgment": "Verhaltenskodex bestätigt",
     "GDPR / data protection briefing": "DSGVO- / Datenschutz-Unterweisung",
     "Conflicts of interest declaration": "Interessenkonflikt-Erklärung",
-    "IT security & acceptable-use policy": "IT-Sicherheits- & Nutzungsrichtlinie",
+    "IT security & acceptable-use policy":
+      "IT-Sicherheits- & Nutzungsrichtlinie",
     "Desk assignment": "Arbeitsplatz zugewiesen",
     "Building access badge": "Gebäude-Zugangskarte",
     "Parking permit": "Parkberechtigung",

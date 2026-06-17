@@ -1,5 +1,5 @@
 export const pl = {
-  meta: { langLabel: "PL", locale: "pl-PL" },
+  meta: { langLabel: "PL", locale: "pl-PL", flag: "pl" },
   app: {
     brand: "Onboard",
     nav: { dashboard: "Pulpit", templates: "Szablony" },
@@ -32,14 +32,16 @@ export const pl = {
     empty: {
       noQuery: (q) => `Brak wyników dla „${q}"`,
       noStatus: (s) => `Brak pracowników o statusie „${s}"`,
-      noBoth: (q, s) => `Brak pracowników o statusie „${s}" pasujących do „${q}"`,
+      noBoth: (q, s) =>
+        `Brak pracowników o statusie „${s}" pasujących do „${q}"`,
       hint: "Spróbuj innego imienia, roli, działu, opiekuna lub szablonu.",
     },
   },
   hireDetail: {
     back: "Powrót do pulpitu",
     checklist: (done, total) => `Lista zadań · ${done} z ${total} wykonanych`,
-    metaLine: (date, owner, template) => `Rozpoczyna ${date} · opiekun ${owner} · szablon ${template}`,
+    metaLine: (date, owner, template) =>
+      `Rozpoczyna ${date} · opiekun ${owner} · szablon ${template}`,
   },
   trackBlock: {
     regulated: "Regulowane",
@@ -53,7 +55,7 @@ export const pl = {
   modal: {
     title: "Dodaj nowego pracownika",
     nameLabel: "Imię i nazwisko",
-    namePlaceholder: "np. Marko Petrović",
+    namePlaceholder: "np. Sebastian Wróblewski",
     nameError: "Wpisz imię, aby utworzyć wpis.",
     roleLabel: "Rola",
     rolePlaceholder: "np. Junior power trader",
@@ -92,7 +94,10 @@ export const pl = {
   templateLabels: {
     trading: { label: "Trading desk", department: "Trading" },
     compliance: { label: "Compliance", department: "Compliance" },
-    corporate: { label: "Usługi korporacyjne", department: "Usługi korporacyjne" },
+    corporate: {
+      label: "Usługi korporacyjne",
+      department: "Usługi korporacyjne",
+    },
     it: { label: "IT", department: "IT" },
     operations: { label: "Operacje", department: "Operacje" },
   },
@@ -105,7 +110,8 @@ export const pl = {
     "Email & calendar account": "Konto e-mail i kalendarza",
     "Trading platform access": "Dostęp do platformy handlowej",
     "Market data terminal": "Terminal danych rynkowych",
-    "Shared drives & internal portal": "Dyski współdzielone i portal wewnętrzny",
+    "Shared drives & internal portal":
+      "Dyski współdzielone i portal wewnętrzny",
     "Compliance case system": "System rejestracji spraw compliance",
     "HR information system": "System informacji kadrowych",
     "Privileged access management": "Zarządzanie dostępem uprzywilejowanym",
@@ -119,8 +125,10 @@ export const pl = {
     "Insider trading policy sign-off": "Akceptacja zasad insider trading",
     "Code of conduct acknowledgment": "Potwierdzenie kodeksu postępowania",
     "GDPR / data protection briefing": "Szkolenie RODO / ochrona danych",
-    "Conflicts of interest declaration": "Oświadczenie o braku konfliktu interesów",
-    "IT security & acceptable-use policy": "Polityka IT i akceptowalnego użytkowania",
+    "Conflicts of interest declaration":
+      "Oświadczenie o braku konfliktu interesów",
+    "IT security & acceptable-use policy":
+      "Polityka IT i akceptowalnego użytkowania",
     "Desk assignment": "Przydzielenie biurka",
     "Building access badge": "Karta dostępu do budynku",
     "Parking permit": "Karta parkingowa",
