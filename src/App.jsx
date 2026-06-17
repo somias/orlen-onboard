@@ -89,7 +89,7 @@ function Shell() {
       style={{ fontFamily: "ui-sans-serif, system-ui, -apple-system, sans-serif" }}
     >
       <header className="sticky top-0 z-40 border-b border-slate-200 bg-white">
-        <div className="mx-auto flex max-w-4xl items-center justify-between gap-3 px-4 py-3 sm:px-5">
+        <div className="relative z-10 mx-auto flex max-w-4xl items-center justify-between gap-3 bg-white px-4 py-3 sm:px-5">
           <div className="flex min-w-0 items-center gap-3 sm:gap-5">
             <div className="flex shrink-0 items-center gap-2">
               <ClipboardCheck size={20} className="text-emerald-500" />
@@ -126,7 +126,7 @@ function Shell() {
         {menuOpen && (
           <div
             id="mobileMenu"
-            className="relative z-40 border-t border-slate-200 bg-white px-3 pb-4 pt-3 shadow-lg sm:hidden"
+            className="animate-menu-open absolute inset-x-0 top-full border-t border-slate-200 bg-white px-3 pb-4 pt-3 shadow-lg sm:hidden"
           >
             <div className="space-y-1">
               {mobileNavItem("dashboard", t.app.nav.dashboard, LayoutGrid)}
@@ -149,7 +149,7 @@ function Shell() {
           aria-hidden="true"
           tabIndex={-1}
           onClick={() => setMenuOpen(false)}
-          className="fixed inset-0 z-30 bg-slate-900/20 sm:hidden"
+          className="animate-menu-fade fixed inset-0 z-30 bg-slate-900/20 sm:hidden"
         />
       )}
 

@@ -1,1 +1,17 @@
 @import "tailwindcss";
+
+@keyframes menu-open {
+  from { clip-path: inset(0 0 100% 0); transform: translateY(-10px); }
+  to { clip-path: inset(0 0 0 0); transform: translateY(0); }
+}
+@keyframes menu-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.animate-menu-open { animation: menu-open 140ms ease-out; }
+.animate-menu-fade { animation: menu-fade 120ms ease-out; }
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-menu-open,
+  .animate-menu-fade { animation: none; }
+}
