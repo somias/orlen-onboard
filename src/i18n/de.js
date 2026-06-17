@@ -54,7 +54,7 @@ export const de = {
   modal: {
     title: "Neuen Mitarbeiter hinzufügen",
     nameLabel: "Vollständiger Name",
-    namePlaceholder: "z. B. Sebastian Wróblewski",
+    namePlaceholder: "z. B. Lukas Brandt",
     nameError: "Geben Sie einen Namen ein, um den Eintrag anzulegen.",
     roleLabel: "Rolle",
     rolePlaceholder: "z. B. Junior Power Trader",

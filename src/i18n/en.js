@@ -54,7 +54,7 @@ export const en = {
   modal: {
     title: "Add new hire",
     nameLabel: "Full name",
-    namePlaceholder: "e.g. Sebastian Wróblewski",
+    namePlaceholder: "e.g. Lukas Brandt",
     nameError: "Enter a name to create the hire.",
     roleLabel: "Role",
     rolePlaceholder: "e.g. Junior power trader",

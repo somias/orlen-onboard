@@ -55,7 +55,7 @@ export const pl = {
   modal: {
     title: "Dodaj nowego pracownika",
     nameLabel: "Imię i nazwisko",
-    namePlaceholder: "np. Sebastian Wróblewski",
+    namePlaceholder: "np. Lukas Brandt",
     nameError: "Wpisz imię, aby utworzyć wpis.",
     roleLabel: "Rola",
     rolePlaceholder: "np. Junior power trader",
