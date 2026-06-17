@@ -22,8 +22,10 @@ export function LanguageSwitcher() {
             onClick={() => setLang(l)}
             aria-current={active ? "true" : undefined}
             lang={l}
-            className={`flex items-center gap-1.5 rounded-md px-1.5 py-1 text-xs font-medium transition-colors ${
-              active ? "bg-slate-100 text-slate-800" : "text-slate-400 hover:text-slate-700"
+            className={`flex items-center gap-1.5 rounded-md px-1.5 py-1 text-xs font-medium transition-colors cursor-pointer ${
+              active
+                ? "bg-slate-100 text-slate-800"
+                : "text-slate-400 hover:text-slate-700"
             }`}
           >
             <img
